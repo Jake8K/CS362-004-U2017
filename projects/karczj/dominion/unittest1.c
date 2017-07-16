@@ -72,32 +72,33 @@ int main() {
     printf("\tplayer 0's turn -> should return player 0\n");
     unitGame.whoseTurn = 0;
     r = whoseTurn(&unitGame);
-    if (r == 0) printf("\t\tpassed test, player = %d\n", r);
-    else printf("failed test, player = %d\n", r);
+    if (r == 0) printf("\t\tPASSED test, player = %d\n", r);
+    else printf("\t\tFAILED test, player = %d\n", r);
     
     printf("\tplayer 1's turn-> should return player 1\n");
     unitGame.whoseTurn = 1;
     r = whoseTurn(&unitGame);
-    if (r == 1) printf("\t\tpassed test, player = %d\n", r);
-    else printf("failed test, player = %d\n", r);
+    if (r == 1) printf("\t\tPASSED test, player = %d\n", r);
+    else printf("\t\tFAILED test, player = %d\n", r);
     
     printf("\tplayer 2's turn-> should return player 2\n");
     unitGame.whoseTurn = 2;
     r = whoseTurn(&unitGame);
-    if (r == 2) printf("\t\tpassed test, player = %d\n", r);
-    else printf("failed test, player = %d\n", r);
+    if (r == 2) printf("\t\tPASSED test, player = %d\n", r);
+    else printf("\t\tFAILED test, player = %d\n", r);
 
     printf("\tplayer 3's turn-> should return player 3\n");
     unitGame.whoseTurn = 3;
     r = whoseTurn(&unitGame);
-    if (r == 3) printf("\t\tpassed test, player = %d\n", r);
-    else printf("failed test, player = %d\n", r);
+    if (r == 3) printf("\t\tPASSED test, player = %d\n", r);
+    else printf("\t\tFAILED test, player = %d\n", r);
 
     printf("\tplayer 100's turn -> should return player 100\n");
     unitGame.whoseTurn = 100;
     r = whoseTurn(&unitGame);
-    if (r == 100) printf("\t\tpassed test, player = %d\n", r);
-    else printf("failed test, player = %d\n", r);
+    if (r == 100) printf("\t\tPASSED test, player = %d\n", r);
+    else printf("\t\tFAILED test, player = %d\n", r);
+    printf("\t\tNOTE: this is an erronious game state\n");
     
     printf("TEST COMPLETE\n\n");
     
