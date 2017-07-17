@@ -98,7 +98,7 @@ int main() {
     r = whoseTurn(&unitGame);
     if (r == 100) printf("\t\tPASSED test, player = %d\n", r);
     else printf("\t\tFAILED test, player = %d\n", r);
-    printf("\t\tNOTE: this is an erronious game state\n");
+    printf("\t\tNOTE: this is an erroneous game state\n");
     
     printf("TEST COMPLETE\n\n");
     
