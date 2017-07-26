@@ -125,12 +125,12 @@ int main() {
     printf("\nTesting Complete... \n");
     printf("\tFailures: %d \n\tSuccessful Runs: %d\n", fail, pass);
     if (fail > 0 && pass > 0) {
-        good = pass/TESTS;
-        bad = fail/TESTS;
-        printf("\tRESULTS: %f success rate, %f fail rate\n", good, bad);
+        good = (float)pass/TESTS * 100.0;
+        bad = (float)fail/TESTS * 100.0;
+        printf("\tRESULTS: %.3f%% success rate, %.3f%% fail rate\n", good, bad);
     }
-    if (pass > fail) printf("PASSED TEST!\n\n");
-    else printf("FAILED TEST :(\n\n");
+    if (pass > fail) printf("PASSED TEST! \n\t:)\n\n");
+    else printf("FAILED TEST \n\t:(\n\n");
     
     return 0;
 }
