@@ -79,12 +79,13 @@
  
  ************************/
 
-#define TESTS 1800
+#define TESTS 180000
 
 int main() {
     int cards[10] = {adventurer, gardens, embargo, village, minion,
                      mine, cutpurse, sea_hag, tribute, smithy};
-    struct gameState g;
+    struct gameState preState,
+                     postState;
     int players,
         player,
         choice1 = 1,
@@ -94,7 +95,7 @@ int main() {
         i,
         j,
         seed,
-        count,
+        inHand = 0,
         pre,
         post,
         fail = 0,
@@ -114,44 +115,71 @@ int main() {
     printf("***************************************************\n");
 
     printf("... running %d randomly generated tests...\n", TESTS);
+    #if (TESTS < 1000)
+         printf("\t... will print a \"+\" (pass) or \"-\" (fail) for every iteration...\n");
+    #endif
+   
     
     for (i = 0; i < TESTS; i++) {
         
         //initialize game params
         players = (rand() % 3) + 2; //2-5 players
         player = rand() % (players + 1);
-        seed = rand() % 36;
+        //player = players + 3; can't hit the nextPlayer = 0 statement!
+        seed = rand();
         
         //initialize gamestate & variables
-        initializeGame(players, cards, seed, &g);
-        handPos = rand() % 4;
-        g.deckCount[player] = rand() % MAX_DECK;
-        g.discardCount[player] = rand() % MAX_DECK;
-        g.handCount[player] = rand() % MAX_HAND;
+        initializeGame(players, cards, seed, &preState);
+        handPos = rand() % 5;
+        preState.deckCount[player] = rand() % MAX_DECK;
+        preState.discardCount[player] = rand() % MAX_DECK;
+        preState.handCount[player] = rand() % MAX_HAND;
+        //handPos = rand() % (int)preState.handCount[player];
         
         //set up for test
         pre = 0;
         post = 0;
-        for( j = 0 ; j < g.handCount[player]; j++ ) {
-            if(g.hand[player][j] == copper || g.hand[player][j] == silver || g.hand[player][j] == gold)
+        for( j = 0 ; j < preState.handCount[player]; j++ ) {
+            if(preState.hand[player][j] == copper ||
+               preState.hand[player][j] == silver ||
+               preState.hand[player][j] == gold)
                 pre++;
         }
+        memcpy(&postState, &preState, sizeof(struct gameState));
         
         //play the card
-        cardEffect(adventurer, choice1, choice2, choice3, &g, handPos, &bonus);
+        cardEffect(adventurer, choice1, choice2, choice3, &postState, handPos, &bonus);
         
-        //test
-        for( j = 0 ; j < g.handCount[player]; j++ ) {
-            if(g.hand[player][j] == copper || g.hand[player][j] == silver || g.hand[player][j] == gold)
+        //test for fails
+        for( j = 0 ; j < postState.handCount[player]; j++ ) {
+            if(postState.hand[player][j] == copper ||
+               postState.hand[player][j] == silver ||
+               postState.hand[player][j] == gold)
                 post++;
         }
+        for (j = 0; j < postState.handCount[player]; j++) {
+            if (postState.hand[player][j] == cards[0]) inHand++;
+        }
         
-        if (pre <= post && pre+2 >= post) { //test treasure +=2, +=1, or +=0 dep on discard
-            printf("+");
+        //if (pre <= post && pre+2 >= post) { //test treasure +=2, +=1, or +=0 dep on discard
+        if ((pre+2 == post) && // treasures += 2
+            (postState.handCount[0] == preState.handCount[0] +1) && // handcount
+            (postState.playedCards[preState.playedCardCount] == adventurer) && //adventurer in played pile
+            (postState.playedCardCount == preState.playedCardCount +1) && //played card count += 1
+            (postState.handCount[player+1] == preState.handCount[player+1]) && //other player hand unchanged
+            (postState.deckCount[player+1] == preState.deckCount[player+1]) && // other player deck unchanged
+            (inHand == 0)) //card still in hand
+            
+        {
+            #if (TESTS < 1000)
+                printf("+");
+            #endif
             pass++;
         }
         else {
-            printf("-");
+            #if (TESTS < 1000)
+                printf("-");
+            #endif
             fail++;
         }
     }
@@ -162,6 +190,14 @@ int main() {
         good = (float)pass/TESTS * 100.0;
         bad = (float)fail/TESTS * 100.0;
         printf("\tRESULTS: %.3f%% success rate, %.3f%% fail rate\n", good, bad);
+    }
+    else {
+        if (pass == 0) {
+            printf("\tRESULTS: 0.0%% success rate, 100.0%% fail rate\n");
+        }
+        else {
+            printf("\tRESULTS: 100.0%% success rate, 0.0%% fail rate\n");
+        }
     }
     if (pass > fail) printf("PASSED TEST! \n\t:)\n\n");
     else printf("FAILED TEST \n\t:(\n\n");

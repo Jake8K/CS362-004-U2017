@@ -60,11 +60,11 @@ ass4: dominion.o randomtestadventurer.c randomtestcard1.c randomtestcard2.c
 	gcc -o rndmCard1 -g dominion.o randomtestcard1.c rngs.o  $(CFLAGS)
 	gcc -o rndmCard2 -g dominion.o randomtestcard2.c rngs.o  $(CFLAGS)
 	gcc -o rndmAdventure -g dominion.o randomtestadventurer.c rngs.o  $(CFLAGS)
-#	./rndmAdventure &> randomtestadventurer.out
+	./rndmAdventure &> randomtestadventurer.out
 	./rndmCard1 &> randomtestcard1.out
 	./rndmCard2 &> randomtestcard2.out
-#	gcov dominion.c >> randomtestadventurer.out
-#	cat dominion.c.gcov >> randomtestadventurer.out
+	gcov dominion.c >> randomtestadventurer.out
+	cat dominion.c.gcov >> randomtestadventurer.out
 	gcov dominion.c >> randomtestcard1.out
 	cat dominion.c.gcov >> randomtestcard1.out
 	gcov dominion.c >> randomtestcard2.out

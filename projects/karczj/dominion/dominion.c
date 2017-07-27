@@ -659,13 +659,13 @@ int adventurer_func(struct gameState *state) {
     if (nextPlayer > (state->numPlayers - 1)){
         nextPlayer = 0;
     }
-
+    //fixed -1 bug bc randomTesters won't work... now bug is in drawCard(*nextPlayer*, state);
     while(drawntreasure<2){
         if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
             shuffle(currentPlayer, state);
         }
-        drawCard(currentPlayer, state);
-        cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]];//top card of hand is most recently drawn card.
+        drawCard(nextPlayer, state);
+        cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
         if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
             drawntreasure++;
         else{
