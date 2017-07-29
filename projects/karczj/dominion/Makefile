@@ -36,7 +36,7 @@ player: player.c interface.o
 
 all: playdom player testDrawCard testBuyCard badTestDrawCard
 
-ass3: dominion.o unittest1.c unittest2.c unittest3.c unittest4.c cardtest1.c cardtest2.c cardtest3.c cardtest4.c
+ass3: dominion.o 
 	gcc -o unittest1 -g dominion.o unittest1.c rngs.o  $(CFLAGS)
 	gcc -o unittest2 -g dominion.o unittest2.c rngs.o  $(CFLAGS)
 	gcc -o unittest3 -g dominion.o unittest3.c rngs.o  $(CFLAGS)
