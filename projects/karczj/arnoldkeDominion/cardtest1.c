@@ -63,7 +63,7 @@ int main () {
     int bonus = NULL;
     struct gameState g, test;
     int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse, sea_hag, tribute, smithy};
-    initializeGame(2, k, 18, &test);
+    initializeGame(2, k, 3664657, &test);
     test.hand[0][1] = adventurer;
     for (i = 1; i < test.deckCount[0]; i++) {
         test.deck[0][i] = minion;
@@ -89,12 +89,24 @@ int main () {
     else printf ("\t\tFAILED TEST: playedCardCount is %d, should be %d\n", test.playedCardCount, g.playedCardCount +1);
 
     //test player successfully draws 2 treasures
-    treasure = test.hand[0][test.handCount[0]-2];
-    if (treasure == copper || treasure == silver || treasure == gold) printf ("\t\tPASSED TEST\n");
-    else printf ("\t\tFAILED TEST: first drawn card is %d, should be 4, 5, or 6\n", treasure);
-    treasure = test.hand[0][test.handCount[0]-1];
-    if (treasure == copper || treasure == silver || treasure == gold) printf ("\t\tPASSED TEST\n");
-    else printf ("\t\tFAILED TEST: second drawn card is %d, should be 4, 5, or 6\n", treasure);
+    printf("\ttesting player successfully draws 2 treasures...\n");
+    int before = 0, after = 0;
+    /*
+    for (int i = 0; i < g.handCount[0]; i++) {
+        if (g.hand[0][i] == copper || g.hand[0][i] == silver || g.hand[0][i] == gold) before++;
+    }
+    //printf("\t\tbefore: %d,  ", before);
+    for (int i = 0; i < test.handCount[0]; i++) {
+        if (test.hand[0][i] == 4 || test.hand[0][i] == 5 || test.hand[0][i] == 6) after++;
+    }
+    //printf("\t\tbefore: %d,  ", before);
+     */
+    for (int i = test.handCount[0] - 1; i < test.handCount[0]; i++) {
+        if (test.hand[0][i] == copper || test.hand[0][i] == silver || test.hand[0][i] == gold) after++;
+    }
+    if (after == 2) printf ("\t\tPASSED TEST\n");
+    else printf ("\t\tFAILED TEST: drew %d treasure cards, should draw 2\n", after);
+
     
     //other player unchanged
     printf("\ttesting next playe's hand and deck are unchanged...\n");

@@ -1,0 +1,50 @@
+Bug 1:
+
+ID: VillageCard_E1
+
+Description: Anytime a player plays the Village card, the player's actions are not incremented properly. The card should give the player an additional two actions for their turn, but instead they only get one extra action.
+
+Suggestion: To fix it, ensure the function increments the player's actions by 2 instead of 1 at line 696.
+For more information on triggering and understanding this bug, please compile and run cardtest3.c, attached.
+
+Est Severity: medium (affects game behavior, but doesn't crash)
+Est Priority: low (doesn't affect functionality, just gameplay)
+
+
+Bug 2:
+
+ID: SmithyCard_E1
+
+Description: Anytime a player plays the Smithy card, the player only draws 2 cards when they should be drawing 3. The card doesn't behave as it should.
+For more information on triggering and understanding this bug, please compile and run cardtest2.c, attached.
+
+Suggestion: To fix it, ensure the for loop runs from i = 0...i < 3  instead of i = 0...i < 2 at line 679.
+
+Est Severity: medium (affects game behavior, but doesn't crash)
+Est Priority: low (doesn't affect functionality, just gameplay)
+
+
+Bug 3:
+
+ID: AdventurerCard_E1
+
+Description: Anytime a player plays the Adventurer card, the player only draws 1 treasure card from their deck when they should be drawing 2.
+For more information on triggering and understanding this bug, please compile and run cardtest1.c, attached.
+
+Suggestion: To fix it, when initializing the function's variables, ensure that drawnTreasure starts at 0 so the while loop runs until the player gets 2 treasure cards.Currently its at 1.
+
+Est Severity: medium (affects game behavior, but doesn't crash)
+Est Priority: low (doesn't affect functionality, just gameplay)
+
+
+Bug 3:
+
+ID: AdventurerCard_E2
+
+Description: Anytime a player plays the Adventurer card, the Adventurer card is not discarded. It remains in their hand.
+For more information on triggering and understanding this bug, please compile and run cardtest1.c, attached.
+
+Suggestion: To fix it, call the discardCard() method at the end of the function. This will ensure that the adventurer card leaves the player's hand and goes into their discard pile.
+
+Est Severity: medium (affects game behavior, but doesn't crash)
+Est Priority: low (doesn't affect functionality, just gameplay)
