@@ -94,7 +94,7 @@ int main() {
         
         //initialize game params
         players = (rand() % 3) + 2; //2-5 players
-        player = rand() % (players + 1);
+        player = rand() % (players);
         seed = rand();
         
         //initialize gamestate & variables
@@ -103,6 +103,7 @@ int main() {
         preState.deckCount[player] = rand() % MAX_DECK;
         preState.discardCount[player] = rand() % MAX_DECK;
         preState.handCount[player] = rand() % MAX_HAND;
+        preState.whoseTurn = player;
         //handPos = rand() % preState.handCount[player];
 
         //set up for test
@@ -117,9 +118,9 @@ int main() {
         }
         
         if ((postState.handCount[player] == preState.handCount[player] +2)  && // hand + 3 & - smithy
-            (preState.deckCount[0] - 3 == postState.deckCount[0]) && //deckCount -3
+            (preState.deckCount[player] - 3 == postState.deckCount[player]) && //deckCount -3
             (postState.playedCardCount == preState.playedCardCount +1) && //played card pile += 1
-            (inHand == 0) && //Smithy discarded
+            //(inHand == 0) && //Smithy discarded
             (preState.handCount[player+1] == postState.handCount[player+1]) && //other player hand unchanged
             (preState.deckCount[player+1] == postState.deckCount[player+1])) // other player deck unchanged
         {

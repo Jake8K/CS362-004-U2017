@@ -94,10 +94,10 @@ TEST COMPLETE
 TESTING smithy...
 	testing successful draw of 3 cards... 
 	  -player should discard smithy and gain 3 cards (hand gain of 2)...
-		FAILED TEST: handCount is 6, should be 7
+		PASSED TEST
 	testing successful draw of 3 cards... 
 	  -player should discard smithy and gain 3 cards (deck loss of 3)...
-		FAILED TEST: deckCount is 3, should be 2
+		PASSED TEST
 	testing played pile count updated (+1)...
 		PASSED TEST
 	testing removing correct played card from hand
@@ -680,7 +680,7 @@ dominion.c:creating 'dominion.c.gcov'
         -:  525:int drawCard(int player, struct gameState *state)
         -:  526:{	int count;
         -:  527:  int deckCounter;
-       45:  528:  if (state->deckCount[player] <= 0){//Deck is empty
+       46:  528:  if (state->deckCount[player] <= 0){//Deck is empty
         -:  529:
         -:  530:    //Step 1 Shuffle the discard pile back into a deck
         -:  531:    int i;
@@ -720,20 +720,20 @@ dominion.c:creating 'dominion.c.gcov'
     #####:  565:  }
         -:  566:
         -:  567:  else{
-       45:  568:    int count = state->handCount[player];//Get current hand count for player
+       46:  568:    int count = state->handCount[player];//Get current hand count for player
         -:  569:    int deckCounter;
         -:  570:    if (DEBUG){//Debug statements
         -:  571:      printf("Current hand count: %d\n", count);
         -:  572:    }
         -:  573:
-       45:  574:    deckCounter = state->deckCount[player];//Create holder for the deck count
-       45:  575:    state->hand[player][count] = state->deck[player][deckCounter - 1];//Add card to the hand
-       45:  576:    state->deckCount[player]--;
-       45:  577:    state->handCount[player]++;//Increment hand count
+       46:  574:    deckCounter = state->deckCount[player];//Create holder for the deck count
+       46:  575:    state->hand[player][count] = state->deck[player][deckCounter - 1];//Add card to the hand
+       46:  576:    state->deckCount[player]--;
+       46:  577:    state->handCount[player]++;//Increment hand count
         -:  578:  }
         -:  579:
-       45:  580:  return 0;
-       45:  581:}
+       46:  580:  return 0;
+       46:  581:}
         -:  582:
         -:  583:int getCost(int cardNumber)
         -:  584:{
@@ -849,10 +849,10 @@ dominion.c:creating 'dominion.c.gcov'
     #####:  694:        nextPlayer = 0;
     #####:  695:    }
         -:  696:    //+3 Cards
-        6:  697:    for (i = 1; i < 3; i++)
+        8:  697:    for (i = 0; i < 3; i++)
         -:  698:    {
-        2:  699:        drawCard(currentPlayer, state);
-        2:  700:    }
+        3:  699:        drawCard(currentPlayer, state);
+        3:  700:    }
         -:  701:
         -:  702:    //discard card from hand
         1:  703:    discardCard(handPos, currentPlayer, state, 0);
